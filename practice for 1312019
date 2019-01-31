@@ -1,0 +1,38 @@
+Select cust_id,Count(*)AS orders
+From Orders
+Group By cust_id
+Having Count (*)>=2;
+
+Select vend_id, Count (*)As num_prod
+From Products
+Where prod_price>=4
+Group By vend_id
+Having Count (*)>=2;
+
+Select vend_id, COUNT(*)AS num_prod
+From Products
+Group By vend_id
+Having Count (*)>=2;
+
+Select order_num, Count(*)AS items
+From OrderItems
+Group By order_num
+Having Count (*)>=3;
+
+--Practice--
+
+Select prod_id, Count(prod_id)as num_id,avg(prod_price)as avg_price
+From Products
+Group By prod_id;
+
+Select cust_name, Count(*)as num_name
+From Customers
+Group By cust_name
+Order By cust_name DESC;
+
+Select order_item, avg(item_price) avg_price
+From OrderItems
+Group By order_item
+Having order_item >= 2;
+
+
