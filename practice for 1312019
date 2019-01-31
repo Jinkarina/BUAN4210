@@ -35,4 +35,99 @@ From OrderItems
 Group By order_item
 Having order_item >= 2;
 
+Select cust_id,Count(*)AS orders
+From Orders
+Group By cust_id
+Having Count (*)>=2;
+
+Select vend_id, Count (*)As num_prod
+From Products
+Where prod_price>=4
+Group By vend_id
+Having Count (*)>=2;
+
+Select vend_id, COUNT(*)AS num_prod
+From Products
+Group By vend_id
+Having Count (*)>=2;
+
+Select order_num, Count(*)AS items
+From OrderItems
+Group By order_num
+Having Count (*)>=3;
+
+--Practice--
+
+Select prod_id, Count(prod_id)as num_id,avg(prod_price)as avg_price
+From Products
+Group By prod_id;
+
+Select cust_name, Count(*)as num_name
+From Customers
+Group By cust_name
+Order By cust_name DESC;
+
+Select order_item, avg(item_price) avg_price
+From OrderItems
+Group By order_item
+Having order_item >= 2;
+
+--Subqueries--
+
+Select order_num
+From OrderItems
+Where prod_id='RGAN01';
+--From this, we got order numbers--
+
+Select cust_id
+From Orders
+Where order_num In(20007,20008);
+--we got two customers id following the number--
+
+Select cust_id
+From Orders
+Where order_num In(Select order_num
+From OrderItems
+Where prod_id='RGAN01');
+--We combined the previous two queries into one query by using IN--
+
+Select cust_name,cust_contact
+From Customers
+Where cust_id IN('1000000004','1000000005');
+--In this queries, we are trying to get two customers name based on two customers ids--
+
+Select cust_name,cust_state,(Select Count(*)
+From Orders
+Where Orders.cust_id=Customers.cust_id)AS orders
+From Customers
+Order By cust_name;
+--We are getting customers name and its states, its number of items--
+
+--Practice2--
+
+Select prod_name
+From Products
+Where prod_id 
+In(Select prod_id
+From OrderItems
+Where not order_item is NULL); 
+--Products name of not null order items. And we picked product_id because it is included both products and orderitems table.
+
+Select cust_name,cust_country
+From Customers
+Where cust_id
+In(Select cust_id
+From Orders
+Where Datepart(yy,order_date)=2012);
+--List all customer names and country of customers who had ordered items in 2012--
+
+Select vend_name,vend_city,Count(prod_num)as num_product
+From Vendors
+where vend_id 
+In(Select vend_id
+From Products
+Order By vend_name DESC)
+
+
+
 
